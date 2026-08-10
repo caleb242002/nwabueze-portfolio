@@ -637,6 +637,11 @@
       color: rgba(245,240,232,0.3);
     }
 
+/* PROJECT PREVIEW IMAGES */
+    .project-card:hover img {
+      transform: scale(1.05);
+    }
+
     /* ANIMATIONS */
     .fade-in {
       opacity: 0;
@@ -651,7 +656,13 @@
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; min-height: auto; padding: 6rem 2rem 3rem; }
-      .hero-right { display: none; }
+      .hero-right { 
+        display: flex;
+        min-height: 320px;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+      }
       .about { grid-template-columns: 1fr; gap: 1rem; padding: 4rem 2rem; }
       .section-label { writing-mode: horizontal-tb; transform: none; }
       .projects-grid { grid-template-columns: 1fr; }
@@ -688,7 +699,7 @@
         <span class="italic">Caleb</span>
       </h1>
       <p class="hero-bio">
-        A web developer who builds thoughtful, beautiful digital experiences. 
+        A Frontend developer who builds modern, beautiful digital experiences. 
         I turn ideas into interfaces — one pixel at a time.
       </p>
       <div class="hero-cta">
@@ -704,11 +715,11 @@
           <div class="photo-placeholder" id="photo-placeholder">
   <img src="calebcorporate1.jpg" alt="Nwabueze Caleb" 
        style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;" />
-  <div class="photo-label">Nwabueze Caleb — Web Developer</div>
+  <div class="photo-label">Nwabueze Caleb — Frontend Developer</div>
 </div>
         </div>
         <div class="float-tag">JavaScript</div>
-        <div class="float-tag">UI Design</div>
+        <div class="float-tag">Css</div>
       </div>
     </div>
   </section>
@@ -739,7 +750,7 @@
     <div class="about-content fade-in">
       <h2>Building the web,<br><em>one project at a time.</em></h2>
       <p>
-        Hi, I'm Nwabueze Caleb — a web developer passionate about crafting clean, 
+        Hi, I'm Nwabueze Caleb — a Frontend Developer passionate about crafting clean, 
         functional, and visually compelling websites. I'm on a journey to master 
         the art of web development, and every project I build sharpens my skills 
         and deepens my love for the craft.
@@ -771,6 +782,10 @@
    <div class="projects-grid">
 
           <div class="project-card fade-in">
+            <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
+              <img src="aurahead.png" alt="AURA Beauty Store Preview" 
+                style="width:100%; height:180px; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+            </div>
             <p class="project-number">01 — E-commerce</p>
             <h3 class="project-title">AURA Beauty Store</h3>
             <p class="project-desc">A fully functional clean beauty e-commerce store with product filtering, a live cart, 3-step checkout, Paystack payment integration, Firebase database and user authentication.</p>
@@ -785,9 +800,13 @@
           </div>
 
           <div class="project-card fade-in">
+            <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
+              <img src="hoperoothead.png" alt="HopeRoot Charity Preview"
+                style="width:100%; height:180px; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+            </div>
             <p class="project-number">02 — Charity</p>
             <h3 class="project-title">HopeRoot Charity</h3>
-            <p class="project-desc">A warm, emotional charity donation site for hunger relief and environmental causes. Features a 3-step donation modal, Paystack payments, Firebase donor database and a mobile-friendly design.</p>
+            <p class="project-desc">A warm, emotional charity donation site for hunger relief and environmental causes. Features a 3-step donation modal, Paystack payments and Firebase donor database.</p>
             <div class="project-tags">
               <span class="project-tag">HTML</span>
               <span class="project-tag">CSS</span>
@@ -799,9 +818,13 @@
           </div>
 
           <div class="project-card fade-in">
+            <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
+              <img src="forgedhead.png" alt="FORGED Fitness Preview"
+                style="width:100%; height:180px; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+            </div>
             <p class="project-number">03 — Landing Page</p>
             <h3 class="project-title">FORGED Fitness</h3>
-            <p class="project-desc">A bold, dark fitness brand landing page with animated sections, a scrolling ticker, program cards, testimonials and a fully functional 3-step signup page with form validation.</p>
+            <p class="project-desc">A bold, dark fitness brand landing page with animated sections, a scrolling ticker, program cards, testimonials and a fully functional 3-step signup page.</p>
             <div class="project-tags">
               <span class="project-tag">HTML</span>
               <span class="project-tag">CSS</span>
@@ -811,6 +834,7 @@
             <a href="https://forged-fitness.netlify.app/" target="_blank" class="project-link">View Project <span class="arrow">↗</span></a>
           </div>
 
+        </div>
         </div>
   </section>
 
