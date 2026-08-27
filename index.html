@@ -673,6 +673,8 @@
       footer { flex-direction: column; gap: 1.5rem; text-align: center; }
     }
   </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>emailjs.init('vZW6-mXH9HYYBktQC');</script>
 </head>
 <body>
 
@@ -865,9 +867,9 @@
   <footer>
     <div class="footer-logo">N<span>.</span>Caleb</div>
     <div class="footer-links">
-      <a href="https://github.com" target="_blank">GitHub</a>
-      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-      <a href="https://twitter.com" target="_blank">Twitter</a>
+      <a href="https://github.com/caleb242002" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/nwabueze-caleb-734539374/" target="_blank">LinkedIn</a>
+      <a href="https://x.com/KingUnderratedx?s=20" target="_blank">Twitter</a>
     </div>
     <p class="footer-copy">© 2025 Nwabueze Caleb. All rights reserved.</p>
   </footer>
@@ -939,18 +941,53 @@
     });
 
     // Contact form
-    function handleSubmit() {
+ function handleSubmit() {
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
+
       if (!name || !email || !message) {
         alert('Please fill in all fields before sending.');
         return;
       }
-      alert(`Thanks, ${name}! Your message has been received. I'll be in touch soon.`);
-      document.getElementById('name').value = '';
-      document.getElementById('email').value = '';
-      document.getElementById('message').value = '';
+
+      // Disable button while sending
+      const btn = document.querySelector('.form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        message: message
+      };
+
+      // Send notification to you + auto-reply to sender at the same time
+      Promise.all([
+        emailjs.send('service_l5190ws', 'template_ylnar37', templateParams),
+        emailjs.send('service_l5190ws', 'template_3tmkeel', templateParams)
+      ])
+        .then(function() {
+          btn.textContent = 'Message Sent ✓';
+          btn.style.background = 'var(--olive)';
+          document.getElementById('name').value = '';
+          document.getElementById('email').value = '';
+          document.getElementById('message').value = '';
+          setTimeout(() => {
+            btn.textContent = 'Send Message →';
+            btn.style.background = '';
+            btn.disabled = false;
+          }, 4000);
+        }, function(error) {
+          btn.textContent = 'Failed — Try Again';
+          btn.style.background = '#c0392b';
+          btn.disabled = false;
+          console.error('EmailJS error:', error);
+          setTimeout(() => {
+            btn.textContent = 'Send Message →';
+            btn.style.background = '';
+          }, 3000);
+        });
     }
   </script>
 </body>
