@@ -440,11 +440,64 @@
       color: var(--muted);
     }
 
+    .projects-carousel { position: relative; }
+
     .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      user-select: none;
     }
+    .projects-grid::-webkit-scrollbar { display: none; }
+    .projects-grid.dragging { scroll-snap-type: none; scroll-behavior: auto; }
+    .projects-grid.dragging .project-card { pointer-events: none; }
+    .projects-grid img { -webkit-user-drag: none; pointer-events: none; }
+    .project-card img { height: 280px; }
+
+    .projects-grid .project-card {
+      flex: 0 0 calc(100% / 3);
+      scroll-snap-align: start;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2.5rem;
+      gap: 1.5rem;
+    }
+    .carousel-dots { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .carousel-dot {
+      width: 28px; height: 3px;
+      border: none; padding: 0;
+      background: rgba(245,240,232,0.15);
+      cursor: none;
+      transition: background 0.3s, width 0.3s;
+    }
+    .carousel-dot.active { background: var(--rust); width: 48px; }
+    .carousel-arrows { display: flex; gap: 0.75rem; align-items: center; }
+    .carousel-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-right: 0.75rem;
+    }
+    .carousel-btn {
+      width: 48px; height: 48px;
+      border: 1px solid rgba(245,240,232,0.2);
+      background: transparent;
+      color: var(--cream);
+      font-size: 1.1rem;
+      cursor: none;
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+    .carousel-btn:hover:not(:disabled) { background: var(--rust); border-color: var(--rust); }
+    .carousel-btn:disabled { opacity: 0.3; }
 
     .project-card {
       border: 1px solid rgba(245,240,232,0.08);
@@ -654,6 +707,9 @@
     }
 
     /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      .projects-grid .project-card { flex-basis: 50%; }
+    }
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; min-height: auto; padding: 6rem 2rem 3rem; }
       .hero-right { 
@@ -665,7 +721,9 @@
       }
       .about { grid-template-columns: 1fr; gap: 1rem; padding: 4rem 2rem; }
       .section-label { writing-mode: horizontal-tb; transform: none; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .projects-grid .project-card { flex-basis: 85%; }
+      .carousel-count { display: none; }
+      .project-card img { height: 220px; }
       .contact { grid-template-columns: 1fr; padding: 4rem 2rem; }
       nav { padding: 1.2rem 2rem; }
       .nav-links { gap: 1.5rem; }
@@ -781,12 +839,13 @@
       <h2>Selected Work</h2>
       <span class="sub">Projects — 2024/26</span>
     </div>
-   <div class="projects-grid">
+   <div class="projects-carousel fade-in">
+   <div class="projects-grid" id="projectsTrack" tabindex="0" aria-label="Projects carousel">
 
-    <div class="project-card fade-in">
+    <div class="project-card">
             <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
               <img src="brixviahead.png" alt="BRIXVIA Harmony Preview"
-                style="width:100%; height:180px; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+                style="width:100%; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
             </div>
             <p class="project-number">01 — Client website</p>
             <h3 class="project-title">BRIXVIA Harmony</h3>
@@ -801,12 +860,48 @@
             <a href="https://www.brixvia.com/" target="_blank" class="project-link">View Project <span class="arrow">↗</span></a>
           </div>
 
-          <div class="project-card fade-in">
+          <div class="project-card">
+            <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
+              <img src="onboardhead.png" alt="Onboard Business Preview"
+                style="width:100%; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+            </div>
+            <p class="project-number">02 — Fintech</p>
+            <h3 class="project-title">Onboard Business</h3>
+            <p class="project-desc">A cross-border payments platform for businesses to send and receive USD, GBP, EUR, local currencies and stablecoins, with fast payouts, transparent fees and API access.</p>
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">UI Design</span>
+              <span class="project-tag">Fintech</span>
+            </div>
+            <a href="https://onboard.xyz/" target="_blank" class="project-link">View Project <span class="arrow">↗</span></a>
+          </div>
+
+          <div class="project-card">
+            <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
+              <img src="blowpayhead.png" alt="BlowPay Preview"
+                style="width:100%; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+            </div>
+            <p class="project-number">03 — Fintech</p>
+            <h3 class="project-title">BlowPay</h3>
+            <p class="project-desc">A bill-payment app website for paying electricity, data, airtime and subscriptions in one place, with instant top-ups, QR code payments and secure, encrypted transactions.</p>
+            <div class="project-tags">
+              <span class="project-tag">HTML</span>
+              <span class="project-tag">CSS</span>
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">UI Design</span>
+              <span class="project-tag">Fintech</span>
+            </div>
+            <a href="https://blowpay.app/" target="_blank" class="project-link">View Project <span class="arrow">↗</span></a>
+          </div>
+
+          <div class="project-card">
             <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
               <img src="aurahead.png" alt="AURA Beauty Store Preview" 
-                style="width:100%; height:180px; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+                style="width:100%; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
             </div>
-            <p class="project-number">02 — E-commerce</p>
+            <p class="project-number">04 — E-commerce</p>
             <h3 class="project-title">AURA Beauty Store</h3>
             <p class="project-desc">A fully functional clean beauty e-commerce store with product filtering, a live cart, 3-step checkout, Paystack payment integration, Firebase database and user authentication.</p>
             <div class="project-tags">
@@ -819,12 +914,12 @@
             <a href="https://aura-beauty-store.netlify.app/" target="_blank" class="project-link">View Project <span class="arrow">↗</span></a>
           </div>
 
-          <div class="project-card fade-in">
+          <div class="project-card">
             <div style="overflow:hidden; margin-bottom:1.5rem; border:1px solid rgba(245,240,232,0.1);">
               <img src="hoperoothead.png" alt="HopeRoot Charity Preview"
-                style="width:100%; height:180px; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
+                style="width:100%; object-fit:cover; object-position:top; display:block; transition:transform 0.5s ease;"/>
             </div>
-            <p class="project-number">03 — Charity</p>
+            <p class="project-number">05 — Charity</p>
             <h3 class="project-title">HopeRoot Charity</h3>
             <p class="project-desc">A warm, emotional charity donation site for hunger relief and environmental causes. Features a 3-step donation modal, Paystack payments and Firebase donor database.</p>
             <div class="project-tags">
@@ -837,6 +932,14 @@
             <a href="https://hoperoot-charity.netlify.app/" target="_blank" class="project-link">View Project <span class="arrow">↗</span></a>
           </div>
 
+        </div>
+        <div class="carousel-controls">
+          <div class="carousel-dots" id="carouselDots"></div>
+          <div class="carousel-arrows">
+            <span class="carousel-count" id="carouselCount"></span>
+            <button class="carousel-btn" id="carouselPrev" aria-label="Previous project">←</button>
+            <button class="carousel-btn" id="carouselNext" aria-label="Next project">→</button>
+          </div>
         </div>
         </div>
   </section>
@@ -907,6 +1010,78 @@
         ring.style.transform = 'scale(1)';
       });
     });
+
+    // Projects carousel
+    (function () {
+      const track = document.getElementById('projectsTrack');
+      const cards = [...track.querySelectorAll('.project-card')];
+      const dotsWrap = document.getElementById('carouselDots');
+      const prev = document.getElementById('carouselPrev');
+      const next = document.getElementById('carouselNext');
+      const count = document.getElementById('carouselCount');
+      const total = String(cards.length).padStart(2, '0');
+
+      const dots = cards.map((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot';
+        d.setAttribute('aria-label', 'Go to project ' + (i + 1));
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+        return d;
+      });
+
+      const cardWidth = () => cards[0].getBoundingClientRect().width;
+      const current = () => Math.round(track.scrollLeft / cardWidth());
+      const maxScroll = () => track.scrollWidth - track.clientWidth;
+      function goTo(i) {
+        i = Math.max(0, Math.min(i, cards.length - 1));
+        track.scrollTo({ left: Math.min(i * cardWidth(), maxScroll()) });
+      }
+
+      function update() {
+        const atEnd = track.scrollLeft >= maxScroll() - 2;
+        const idx = atEnd ? cards.length - 1 : current();
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        count.textContent = String(idx + 1).padStart(2, '0') + ' / ' + total;
+        prev.disabled = track.scrollLeft <= 2;
+        next.disabled = atEnd;
+      }
+
+      prev.addEventListener('click', () => goTo(current() - 1));
+      next.addEventListener('click', () => goTo(current() + 1));
+      track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+      window.addEventListener('resize', update);
+      track.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current() + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current() - 1); }
+      });
+
+      // Mouse drag to swipe on desktop (touch uses native scrolling)
+      let down = false, startX = 0, startScroll = 0, moved = false;
+      track.addEventListener('pointerdown', e => {
+        if (e.pointerType !== 'mouse' || e.button !== 0) return;
+        down = true; moved = false;
+        startX = e.clientX; startScroll = track.scrollLeft;
+      });
+      window.addEventListener('pointermove', e => {
+        if (!down) return;
+        const dx = e.clientX - startX;
+        if (!moved && Math.abs(dx) > 5) { moved = true; track.classList.add('dragging'); }
+        if (moved) track.scrollLeft = startScroll - dx;
+      });
+      window.addEventListener('pointerup', () => {
+        if (!down) return;
+        down = false;
+        if (!moved) return;
+        const delta = track.scrollLeft - startScroll;
+        const base = Math.round(startScroll / cardWidth());
+        const target = Math.abs(delta) > cardWidth() * 0.15 ? base + Math.sign(delta) : base;
+        track.classList.remove('dragging');
+        goTo(target);
+      });
+
+      update();
+    })();
 
     // Scroll fade-in
     const observer = new IntersectionObserver(entries => {
