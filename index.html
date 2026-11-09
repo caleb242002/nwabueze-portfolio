@@ -49,6 +49,10 @@
       transition: all 0.1s ease;
       mix-blend-mode: multiply;
     }
+    /* No custom cursor on touch devices */
+    @media (hover: none), (pointer: coarse) {
+      .cursor, .cursor-ring { display: none; }
+    }
 
     /* Grain overlay */
     body::before {
@@ -990,6 +994,8 @@
       cursor.style.top = mouseY - 6 + 'px';
     });
 
+    const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
     function animateRing() {
       ringX += (mouseX - ringX - 18) * 0.12;
       ringY += (mouseY - ringY - 18) * 0.12;
@@ -997,7 +1003,7 @@
       ring.style.top = ringY + 'px';
       requestAnimationFrame(animateRing);
     }
-    animateRing();
+    if (hasMouse) animateRing();
 
     document.querySelectorAll('a, button, input, textarea').forEach(el => {
       el.addEventListener('mouseenter', () => {
