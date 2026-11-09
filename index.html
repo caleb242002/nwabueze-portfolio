@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Nwabueze Caleb — Web Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -18,13 +18,13 @@
       --paper: #ede8dc;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
 
     body {
       background-color: var(--cream);
       color: var(--dark);
       font-family: 'DM Sans', sans-serif;
-      overflow-x: hidden;
+      overflow-x: clip;
       cursor: none;
     }
 
@@ -73,7 +73,13 @@
       padding: 1.4rem 3rem;
       border-bottom: 1px solid rgba(26,20,16,0.12);
       background: rgba(245,240,232,0.85);
+      -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
+      width: 100%;
+      box-sizing: border-box;
+      padding-top: calc(1.4rem + env(safe-area-inset-top));
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     .nav-logo {
@@ -726,10 +732,15 @@
       .projects-grid .project-card { flex-basis: 85%; }
       .carousel-count { display: none; }
       .contact { grid-template-columns: 1fr; padding: 4rem 2rem; }
-      nav { padding: 1.2rem 2rem; }
+      nav { padding: calc(1.2rem + env(safe-area-inset-top)) 2rem 1.2rem; }
       .nav-links { gap: 1.5rem; }
       .projects { padding: 4rem 2rem; }
       footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      nav { padding: calc(1rem + env(safe-area-inset-top)) 1.25rem 1rem; }
+      .nav-links { gap: 1rem; }
+      .nav-links a { font-size: 0.65rem; letter-spacing: 0.06em; }
     }
   </style>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
